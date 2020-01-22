@@ -46,8 +46,8 @@
                <pin_label pin_num="95" pin_signal="PTD2/LLWU_P13/SPI0_SOUT/UART2_RX/FTM3_CH2/FB_AD4/I2C0_SCL" label="J2[8]" identifier="UART2_RX"/>
                <pin_label pin_num="96" pin_signal="PTD3/SPI0_SIN/UART2_TX/FTM3_CH3/FB_AD3/I2C0_SDA" label="J2[10]" identifier="UART2_TX"/>
                <pin_label pin_num="94" pin_signal="ADC0_SE5b/PTD1/SPI0_SCK/UART2_CTS_b/FTM3_CH1/FB_CS0_b" label="J2[12]"/>
-               <pin_label pin_num="32" pin_signal="ADC0_SE18/PTE25/UART4_RX/I2C0_SDA/EWM_IN" label="J2[18]/U8[6]/I2C0_SDA" identifier="ACCEL_SDA"/>
-               <pin_label pin_num="31" pin_signal="ADC0_SE17/PTE24/UART4_TX/I2C0_SCL/EWM_OUT_b" label="J2[20]/U8[4]/I2C0_SCL" identifier="ACCEL_SCL"/>
+               <pin_label pin_num="32" pin_signal="ADC0_SE18/PTE25/UART4_RX/I2C0_SDA/EWM_IN" label="J2[18]/U8[6]/I2C0_SDA" identifier="ACCEL_SDA;MPU6050_SDA"/>
+               <pin_label pin_num="31" pin_signal="ADC0_SE17/PTE24/UART4_TX/I2C0_SCL/EWM_OUT_b" label="J2[20]/U8[4]/I2C0_SCL" identifier="ACCEL_SCL;MPU6050_SCL"/>
                <pin_label pin_num="26" pin_signal="VREF_OUT/CMP1_IN5/CMP0_IN5/ADC1_SE18" label="J2[17]"/>
                <pin_label pin_num="21" pin_signal="ADC1_DM0/ADC0_DM3" label="J2[13]"/>
                <pin_label pin_num="18" pin_signal="ADC0_DP0/ADC1_DP3" label="J2[5]"/>
@@ -167,12 +167,12 @@
                   </pin>
                   <pin peripheral="I2C0" signal="SCL" pin_num="31" pin_signal="ADC0_SE17/PTE24/UART4_TX/I2C0_SCL/EWM_OUT_b">
                      <pin_features>
-                        <pin_feature name="identifier" value=""/>
+                        <pin_feature name="identifier" value="MPU6050_SCL"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="I2C0" signal="SDA" pin_num="32" pin_signal="ADC0_SE18/PTE25/UART4_RX/I2C0_SDA/EWM_IN">
                      <pin_features>
-                        <pin_feature name="identifier" value=""/>
+                        <pin_feature name="identifier" value="MPU6050_SDA"/>
                      </pin_features>
                   </pin>
                </pins>
@@ -428,6 +428,7 @@
                <pins>
                   <pin peripheral="I2C0" signal="SDA" pin_num="32" pin_signal="ADC0_SE18/PTE25/UART4_RX/I2C0_SDA/EWM_IN">
                      <pin_features>
+                        <pin_feature name="identifier" value="ACCEL_SDA"/>
                         <pin_feature name="slew_rate" value="fast"/>
                         <pin_feature name="open_drain" value="enable"/>
                         <pin_feature name="drive_strength" value="low"/>
@@ -438,6 +439,7 @@
                   </pin>
                   <pin peripheral="I2C0" signal="SCL" pin_num="31" pin_signal="ADC0_SE17/PTE24/UART4_TX/I2C0_SCL/EWM_OUT_b">
                      <pin_features>
+                        <pin_feature name="identifier" value="ACCEL_SCL"/>
                         <pin_feature name="slew_rate" value="fast"/>
                         <pin_feature name="open_drain" value="enable"/>
                         <pin_feature name="drive_strength" value="low"/>
@@ -928,7 +930,7 @@
             <component name="system" uuid="8a467fac-fc8c-436f-b917-3f2edd20a759" type_id="system">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="3f8b3d1e-e6ef-4033-92fa-451f14a54931" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="2839c70a-7605-48ac-977d-f1d79f61a68d" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>
