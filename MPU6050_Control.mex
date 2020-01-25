@@ -911,14 +911,14 @@
                </dependencies>
                <instances>
                   <instance name="I2C0" uuid="789a9d1f-0ea4-4c10-928c-3df0b0666fa0" type="i2c" type_id="i2c_2566d7363e7e9aaedabb432110e372d7" mode="I2C_Polling" peripheral="I2C0" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="fsl_i2c" quick_selection="QS_I2C_1">
+                     <config_set name="fsl_i2c">
                         <setting name="i2c_mode" value="kI2C_Master"/>
                         <setting name="clockSource" value="BusInterfaceClock"/>
                         <setting name="clockSourceFreq" value="GetFreq"/>
                         <struct name="i2c_master_config">
                            <setting name="enableMaster" value="true"/>
                            <setting name="enableStopHold" value="false"/>
-                           <setting name="baudRate_Bps" value="100000"/>
+                           <setting name="baudRate_Bps" value="400000"/>
                            <setting name="glitchFilterWidth" value="0"/>
                         </struct>
                      </config_set>
@@ -930,7 +930,7 @@
             <component name="system" uuid="8a467fac-fc8c-436f-b917-3f2edd20a759" type_id="system">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="2839c70a-7605-48ac-977d-f1d79f61a68d" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="4b77abc0-44e1-4c50-aa05-0911f15e1f8a" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>
