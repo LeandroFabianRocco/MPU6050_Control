@@ -10,9 +10,10 @@
 volatile bool completionFlag = false;
 volatile bool nakFlag        = false;
 i2c_master_handle_t g_m_handle;
+//uint8_t g_accel_addr_found = 0x00;
 
 
-static void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData)
+void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData)
 {
     /* Signal transfer success when received success status. */
     if (status == kStatus_Success)
@@ -25,7 +26,6 @@ static void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, sta
         nakFlag = true;
     }
 }
-
 
 bool FXOS8700CQ_ReadSensorWhoAmI(void)
 {
@@ -55,10 +55,10 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 		completionFlag     = false;
 		find_device        = true;
 	}
-	else
+	/*else
 	{
 		PRINTF("No se pudo conectar con el dispositivo.");
-	}
+	}*/
 
 	if (find_device == true)
 	{
@@ -76,22 +76,19 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 		nakFlag = false;
 	}
 
-	if (completionFlag == true)
+	completionFlag = false;
+	if (who_am_i_value == FXOS8700_WHOAMI_VALUE)
 	{
-		completionFlag = false;
-		if (who_am_i_value == FXOS8700_WHOAMI_VALUE)
-		{
-			PRINTF("Conexión con FXOS8700CQ establecida, la dirección del dispositivo es 0x%x . \r\n", masterXfer.slaveAddress);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		//PRINTF("Conexión con FXOS8700CQ establecida, la dirección del dispositivo es 0x%x . \r\n", masterXfer.slaveAddress);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
-static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
+bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
 {
     i2c_master_transfer_t masterXfer;
     memset(&masterXfer, 0, sizeof(masterXfer));
@@ -104,8 +101,6 @@ static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
     masterXfer.dataSize       = 1;
     masterXfer.flags          = kI2C_TransferDefaultFlag;
 
-    /*  direction=write : start+device_write;cmdbuff;xBuff; */
-    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
 
     I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
 
@@ -127,7 +122,7 @@ static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
     }
 }
 
-static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
+bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
 {
     i2c_master_transfer_t masterXfer;
     memset(&masterXfer, 0, sizeof(masterXfer));
@@ -138,9 +133,6 @@ static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
     masterXfer.data           = rxBuff;
     masterXfer.dataSize       = rxSize;
     masterXfer.flags          = kI2C_TransferDefaultFlag;
-
-    /*  direction=write : start+device_write;cmdbuff;xBuff; */
-    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
 
     I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
 
@@ -166,6 +158,59 @@ void FXOS8700CQ_Init(void)
 {
 	I2C_MasterTransferCreateHandle(I2C0, &g_m_handle, i2c_master_callback, NULL);
 }
+
+void FXOS8700CQ_Configure_Device(void)
+{
+	uint8_t databyte  = 0;
+	uint8_t write_reg = 0;
+
+	// Acelerómetro
+	write_reg = FXOS8700CQ_CTRL_REG1;
+	databyte  = 0;
+	I2C_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
+	// +- 4g
+	write_reg = FXOS8700CQ_XYZ_DATA_CFG;
+	databyte  = 0x01;
+	I2C_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
+	// Activo el acelerómetro
+	write_reg = FXOS8700CQ_CTRL_REG1;
+	databyte  = 0x0D;
+	I2C_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
+
+	// Magnetómetro
+	write_reg = FXOS8700CQ_M_CTRL_REG1;
+	databyte = 3; // Dos sensores en funcionamiento
+	I2C_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
+}
+
+
+uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_accel)
+{
+	uint8_t readBuff[7];
+	I2C_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);
+	xyz_accel[0] = ((int16_t)(((readBuff[1] * 256U) | readBuff[2]))) / 4U;
+	xyz_accel[1] = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
+	xyz_accel[2] = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
+	return readBuff[0];
+}
+
+uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_magnet)
+{
+	uint8_t readBuff[7];
+	I2C_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);
+	xyz_magnet[0] = ((int16_t)(((readBuff[1] * 256U) | readBuff[2]))) / 4U;
+	xyz_magnet[1] = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
+	xyz_magnet[2] = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
+	return readBuff[0];
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -44,7 +44,11 @@
 
 /*
  * @brief   Application entry point.
+ *
+ * uint8_t g_accel_addr_found = 0x00;
  */
+
+uint8_t g_accel_addr_found = 0x00;
 int main(void) {
 
 	bool isThereAccel = false;
@@ -62,13 +66,32 @@ int main(void) {
     PRINTF("Hecho.\n");
 
     isThereAccel = FXOS8700CQ_ReadSensorWhoAmI();
+    FXOS8700CQ_Configure_Device();
 
-    /* Force the counter to be placed into memory. */
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+    if (isThereAccel)
+    {
+    	uint8_t status0_value = 0;
+		uint8_t readBuff[7];
+		int16_t x, y, z;
+		int16_t a_xyz[3];
+		int16_t m_xyz[3];
+
+		while(1)
+		{
+			status0_value = 0;
+			while (status0_value != 0xff)
+			{
+				I2C_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, &status0_value, 1);
+			}
+
+			status0_value = FXOS8700CQ_Read_Accel(I2C0, FXOS8700CQ_DEVICE_ADDRESS, a_xyz);
+
+			status0_value = FXOS8700CQ_Read_Magnet(I2C0, FXOS8700CQ_DEVICE_ADDRESS, m_xyz);
+
+
+			PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+		}
     }
+
     return 0 ;
 }

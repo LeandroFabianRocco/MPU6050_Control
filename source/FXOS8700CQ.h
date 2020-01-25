@@ -12,6 +12,9 @@
 #include "fsl_i2c.h"
 #include "fsl_debug_console.h"
 
+
+
+
 /**********************************************************
  * Definición de variables
  *********************************************************/
@@ -144,9 +147,13 @@
  * Definición de funciones
  *********************************************************/
 bool FXOS8700CQ_ReadSensorWhoAmI(void);
-static void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
-static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
-static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
+bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
+bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
 void FXOS8700CQ_Init(void);
+void FXOS8700CQ_Configure_Device(void);
+uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_accel);
+uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_magnet);
+
 
 #endif /* FXOS8700CQ_H_ */
