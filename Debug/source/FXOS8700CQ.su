@@ -1,0 +1,5 @@
+FXOS8700CQ.c:15:13:i2c_master_callback	24	static
+FXOS8700CQ.c:30:6:FXOS8700CQ_ReadSensorWhoAmI	40	static
+FXOS8700CQ.c:94:13:I2C_WriteAccelReg	40	static
+FXOS8700CQ.c:130:13:I2C_ReadAccelRegs	48	static
+FXOS8700CQ.c:165:6:FXOS8700CQ_Init	8	static

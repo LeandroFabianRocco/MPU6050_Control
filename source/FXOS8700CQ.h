@@ -10,10 +10,16 @@
 
 
 #include "fsl_i2c.h"
+#include "fsl_debug_console.h"
 
 /**********************************************************
  * Definición de variables
  *********************************************************/
+// Dirección del Acelerómetro
+#define FXOS8700CQ_DEVICE_ADDRESS	0x1D
+// Valor del registro WHO_AM_I
+#define FXOS8700_WHOAMI_VALUE 0xC7U
+// Direcciones de los registros internos
 #define FXOS8700CQ_STATUS			0x00
 #define FXOS8700CQ_OUT_X_MSB		0x01
 #define FXOS8700CQ_OUT_X_LSB		0x02
@@ -137,9 +143,10 @@
 /**********************************************************
  * Definición de funciones
  *********************************************************/
-static bool FXOS8700CQ_ReadSensorWhoAmI(void);
-uint8_t FXOS8700CQ_ReadRegister(uint8_t addr);
-void FXOS8700CQ_WriteRegister(uint8_t addr, uint8_t value);
-
+bool FXOS8700CQ_ReadSensorWhoAmI(void);
+static void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
+static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
+static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+void FXOS8700CQ_Init(void);
 
 #endif /* FXOS8700CQ_H_ */

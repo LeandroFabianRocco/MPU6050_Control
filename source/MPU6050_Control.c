@@ -39,14 +39,15 @@
 #include "clock_config.h"
 #include "MK64F12.h"
 #include "fsl_debug_console.h"
-/* TODO: insert other include files here. */
 
-/* TODO: insert other definitions and declarations here. */
+#include "FXOS8700CQ.h"
 
 /*
  * @brief   Application entry point.
  */
 int main(void) {
+
+	bool isThereAccel = false;
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -55,13 +56,16 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    PRINTF("Hello World\n");
+    // Inicializo el acelerómetro de la placa
+    PRINTF("Inicializando acelerómetro...");
+    FXOS8700CQ_Init();
+    PRINTF("Hecho.\n");
+
+    isThereAccel = FXOS8700CQ_ReadSensorWhoAmI();
 
     /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
     /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
-        i++ ;
         /* 'Dummy' NOP to allow source level single stepping of
             tight while() loop */
         __asm volatile ("nop");

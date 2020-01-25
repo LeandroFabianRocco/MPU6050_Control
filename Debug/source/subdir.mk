@@ -4,14 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../source/FXOS8700CQ.c \
 ../source/MPU6050_Control.c \
 ../source/semihost_hardfault.c 
 
 OBJS += \
+./source/FXOS8700CQ.o \
 ./source/MPU6050_Control.o \
 ./source/semihost_hardfault.o 
 
 C_DEPS += \
+./source/FXOS8700CQ.d \
 ./source/MPU6050_Control.d \
 ./source/semihost_hardfault.d 
 
