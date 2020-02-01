@@ -37,6 +37,18 @@ void BOARD_InitBootPins(void);
 #define BOARD_FXOS8700CQ_SDA_PIN 25U    /*!<@brief PORTE pin index: 25 */
                                         /* @} */
 
+/*! @name PORTC10 (number 82), J4[12]
+  @{ */
+#define BOARD_MPU6050_SCL_PORT PORTC /*!<@brief PORT device name: PORTC */
+#define BOARD_MPU6050_SCL_PIN 10U    /*!<@brief PORTC pin index: 10 */
+                                     /* @} */
+
+/*! @name PORTC11 (number 83), J4[10]
+  @{ */
+#define BOARD_MPU6050_SDA_PORT PORTC /*!<@brief PORT device name: PORTC */
+#define BOARD_MPU6050_SDA_PIN 11U    /*!<@brief PORTC pin index: 11 */
+                                     /* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *

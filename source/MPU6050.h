@@ -7,9 +7,17 @@
 
 #ifndef MPU6050_H_
 #define MPU6050_H_
+
+#include "fsl_i2c.h"
+
 /**********************************************************
  * Registros del MPU6050
  *********************************************************/
+// MPU6050 address
+#define MPU6050_DEVICE_ADDRESS_1 	0x68
+#define MPU6050_DEVICE_ADDRESS_0 	0x69
+
+
 #define MPU6050_SELF_TEST_X			0x0D
 #define MPU6050_SELF_TEST_Y 		0x0E
 #define MPU6050_SELF_TEST_Z 		0x0F
@@ -97,9 +105,9 @@
 /**********************************************************
  * Declaración de funciones
  *********************************************************/
-uint8_t read_byte(uint8_t addr);
-void write_byte(uint8_t addr, uint8_t value);
-
+void MPU6050_Init(void);
+void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
+bool MPU6050_ReadSensorWhoAmI(void);
 
 
 
