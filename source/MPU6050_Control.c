@@ -51,7 +51,8 @@
 uint8_t g_accel_addr_found = 0x00;
 int main(void) {
 
-	bool isThereAccel = false;
+	bool isThereAccelFX = false;
+	bool isThereAccelMPU = false;
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -63,12 +64,16 @@ int main(void) {
     // Inicializo el acelerómetro de la placa
     PRINTF("Inicializando acelerómetro...");
     FXOS8700CQ_Init();
+    MPU6050_Init();
     PRINTF("Hecho.\n");
 
-    isThereAccel = FXOS8700CQ_ReadSensorWhoAmI();
+    isThereAccelFX = FXOS8700CQ_ReadSensorWhoAmI();
     FXOS8700CQ_Configure_Device();
 
-    if (isThereAccel)
+    isThereAccelMPU = MPU6050_ReadSensorWhoAmI();
+
+
+    if (isThereAccelFX)
     {
     	uint8_t status0_value = 0;
 		uint8_t readBuff[7];
