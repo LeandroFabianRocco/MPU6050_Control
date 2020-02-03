@@ -45,22 +45,22 @@ bool MPU6050_ReadSensorWhoAmI(void)
 	memset(&masterXfer, 0, sizeof(masterXfer));
 
 	// START + Slave_address (write_bit); Reg_address
-	masterXfer.slaveAddress   = FXOS8700CQ_DEVICE_ADDRESS;	// Envío la dirección del dispositivo
+	masterXfer.slaveAddress   = MPU6050_DEVICE_ADDRESS_0;	// Envío la dirección del dispositivo
 	masterXfer.direction      = kI2C_Write;					// Operación de escritura
 	masterXfer.subaddress     = 0;
 	masterXfer.subaddressSize = 0;
 	masterXfer.data           = &who_am_i_reg;				// Dirección del registro WHO_AM_I
 	masterXfer.dataSize       = 1;
 	masterXfer.flags          = kI2C_TransferNoStopFlag;
-	I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
+	I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
 
 	// Espero a que la transmisión se complete
-	while ((!nakFlag) && (!completionFlag)){}
-	nakFlag = false;
+	while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag)){}
+	MPU6050_nakFlag = false;
 
-	if (completionFlag == true)
+	if (MPU6050_completionFlag == true)
 	{
-		completionFlag     = false;
+		MPU6050_completionFlag     = false;
 		find_device        = true;
 	}
 	/*else
@@ -77,17 +77,20 @@ bool MPU6050_ReadSensorWhoAmI(void)
 		masterXfer.data           = &who_am_i_value;
 		masterXfer.dataSize       = 1;
 		masterXfer.flags          = kI2C_TransferRepeatedStartFlag;
-		I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
+		I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
 
 		// Espero a que la transmisión se complete
-		while ((!nakFlag) && (!completionFlag)){}
-		nakFlag = false;
+		while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag)){}
+		MPU6050_nakFlag = false;
 	}
 
-	completionFlag = false;
-	if (who_am_i_value == FXOS8700_WHOAMI_VALUE)
+	MPU6050_completionFlag = false;
+	if (who_am_i_value == MPU6050_WHOAMI_VALUE_0)
 	{
-		//PRINTF("Conexión con FXOS8700CQ establecida, la dirección del dispositivo es 0x%x . \r\n", masterXfer.slaveAddress);
+		return true;
+	}
+	else if (who_am_i_value == MPU6050_WHOAMI_VALUE_1)
+	{
 		return true;
 	}
 	else

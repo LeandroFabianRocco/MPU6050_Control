@@ -271,9 +271,9 @@ Discarded input sections
  .text.MPU6050_i2c_master_callback
                 0x0000000000000000       0x48 ./source/MPU6050.o
  .text.MPU6050_ReadSensorWhoAmI
-                0x0000000000000000       0x10 ./source/MPU6050.o
- .debug_info    0x0000000000000000      0x716 ./source/MPU6050.o
- .debug_abbrev  0x0000000000000000      0x1b0 ./source/MPU6050.o
+                0x0000000000000000      0x10c ./source/MPU6050.o
+ .debug_info    0x0000000000000000      0x782 ./source/MPU6050.o
+ .debug_abbrev  0x0000000000000000      0x1c3 ./source/MPU6050.o
  .debug_aranges
                 0x0000000000000000       0x30 ./source/MPU6050.o
  .debug_ranges  0x0000000000000000       0x20 ./source/MPU6050.o
@@ -297,11 +297,11 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xd0 ./source/MPU6050.o
  .debug_macro   0x0000000000000000      0x174 ./source/MPU6050.o
  .debug_macro   0x0000000000000000       0x1c ./source/MPU6050.o
- .debug_macro   0x0000000000000000      0x1f0 ./source/MPU6050.o
- .debug_line    0x0000000000000000      0x378 ./source/MPU6050.o
- .debug_str     0x0000000000000000    0x7a58d ./source/MPU6050.o
+ .debug_macro   0x0000000000000000      0x208 ./source/MPU6050.o
+ .debug_line    0x0000000000000000      0x406 ./source/MPU6050.o
+ .debug_str     0x0000000000000000    0x7a6b8 ./source/MPU6050.o
  .comment       0x0000000000000000       0x77 ./source/MPU6050.o
- .debug_frame   0x0000000000000000       0x74 ./source/MPU6050.o
+ .debug_frame   0x0000000000000000       0x78 ./source/MPU6050.o
  .ARM.attributes
                 0x0000000000000000       0x34 ./source/MPU6050.o
  .group         0x0000000000000000        0xc ./source/MPU6050_Control.o
@@ -7612,6 +7612,7 @@ I2C_MasterTransferGetCount                        ./drivers/fsl_i2c.o
 I2C_MasterTransferGetCountEDMA                    ./drivers/fsl_i2c_edma.o
 I2C_MasterTransferHandleIRQ                       ./drivers/fsl_i2c.o
 I2C_MasterTransferNonBlocking                     ./drivers/fsl_i2c.o
+                                                  ./source/MPU6050.o
                                                   ./source/FXOS8700CQ.o
 I2C_MasterWriteBlocking                           ./drivers/fsl_i2c.o
 I2C_ReadAccelRegs                                 ./source/FXOS8700CQ.o
@@ -8208,6 +8209,7 @@ memset                                            /usr/local/mcuxpressoide-11.1.
                                                   ./drivers/fsl_cmt.o
                                                   ./drivers/fsl_cmp.o
                                                   ./drivers/fsl_adc16.o
+                                                  ./source/MPU6050.o
                                                   ./source/FXOS8700CQ.o
                                                   ./utilities/fsl_debug_console.o
 mpu_g_m_handle                                    ./source/MPU6050.o
