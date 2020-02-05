@@ -100,3 +100,7 @@ bool MPU6050_ReadSensorWhoAmI(void)
 }
 
 
+void MPU6050_Configure_Device(void)
+{
+
+}

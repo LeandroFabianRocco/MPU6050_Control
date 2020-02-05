@@ -110,7 +110,7 @@
 void MPU6050_Init(void);
 void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
 bool MPU6050_ReadSensorWhoAmI(void);
-
+void MPU6050_Configure_Device(void);
 
 
 #endif /* MPU6050_H_ */

@@ -21,7 +21,7 @@
 // Dirección del Acelerómetro
 #define FXOS8700CQ_DEVICE_ADDRESS	0x1D
 // Valor del registro WHO_AM_I
-#define FXOS8700_WHOAMI_VALUE 0xC7U
+#define FXOS8700_WHOAMI_VALUE 		0xC7
 // Direcciones de los registros internos
 #define FXOS8700CQ_STATUS			0x00
 #define FXOS8700CQ_OUT_X_MSB		0x01
@@ -147,9 +147,9 @@
  * Definición de funciones
  *********************************************************/
 bool FXOS8700CQ_ReadSensorWhoAmI(void);
-void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
-bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
-bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+void FXOS8700CQ_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
+bool FXOS8700CQ_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
+bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
 void FXOS8700CQ_Init(void);
 void FXOS8700CQ_Configure_Device(void);
 uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_accel);

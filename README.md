@@ -6,3 +6,4 @@ The objective of this project is not only adquire data but also filtering the da
 
 Project Status
 * Accelerometer and magnetometer data from FXOS8700CQ is received. Library was created.
+* Communication with MPU6050 was stablished (WHO_AM_I reg was read)

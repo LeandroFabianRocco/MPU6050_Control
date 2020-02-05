@@ -86,7 +86,7 @@ int main(void) {
 			status0_value = 0;
 			while (status0_value != 0xff)
 			{
-				I2C_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, &status0_value, 1);
+				FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, &status0_value, 1);
 			}
 
 			status0_value = FXOS8700CQ_Read_Accel(I2C0, FXOS8700CQ_DEVICE_ADDRESS, a_xyz);
@@ -94,7 +94,7 @@ int main(void) {
 			status0_value = FXOS8700CQ_Read_Magnet(I2C0, FXOS8700CQ_DEVICE_ADDRESS, m_xyz);
 
 
-			PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+			PRINTF("ax = %5d , ay = %5d , az = %5d, mx = %5d, my = %5d, mz = %5d \r\n", a_xyz[0], a_xyz[1], a_xyz[2], m_xyz[0], m_xyz[1], m_xyz[2]);
 		}
     }
 
