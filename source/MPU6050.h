@@ -111,6 +111,9 @@ void MPU6050_Init(void);
 void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
 bool MPU6050_ReadSensorWhoAmI(void);
 void MPU6050_Configure_Device(void);
-
+bool MPU6050_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
+bool MPU6050_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+void MPU6050_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel);
+void MPU6050_Read_Gyro(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gyro);
 
 #endif /* MPU6050_H_ */

@@ -24,7 +24,7 @@ source/MPU6050_Control.o source/MPU6050_Control.d: \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/component/serial_manager/serial_manager.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/component/serial_manager/serial_port_uart.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/component/uart/uart.h \
- ../source/FXOS8700CQ.h
+ ../source/FXOS8700CQ.h ../source/MPU6050.h
 
 /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/board.h:
 
@@ -75,3 +75,5 @@ source/MPU6050_Control.o source/MPU6050_Control.d: \
 /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/component/uart/uart.h:
 
 ../source/FXOS8700CQ.h:
+
+../source/MPU6050.h:

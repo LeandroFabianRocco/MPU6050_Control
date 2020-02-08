@@ -102,5 +102,115 @@ bool MPU6050_ReadSensorWhoAmI(void)
 
 void MPU6050_Configure_Device(void)
 {
+	uint8_t databyte  = 0;
+	uint8_t write_reg = 0;
 
+	// Configuration register
+	write_reg = MPU6050_CONFIG;
+	databyte  = 0;
+	MPU6050_WriteAccelReg(I2C1, MPU6050_DEVICE_ADDRESS_0, write_reg, databyte);
+
+	// Power mode and clock source
+	write_reg = MPU6050_PWR_MGMT_1;
+	databyte  = 0;
+	MPU6050_WriteAccelReg(I2C1, MPU6050_DEVICE_ADDRESS_0, write_reg, databyte);
+
+	// Gyro - +-250°/s
+	write_reg = MPU6050_GYRO_CONFIG;
+	databyte  = 0;
+	MPU6050_WriteAccelReg(I2C1, MPU6050_DEVICE_ADDRESS_0, write_reg, databyte);
+
+	// Accel - +-2g
+	write_reg = MPU6050_ACCEL_CONFIG;
+	databyte  = 0;
+	MPU6050_WriteAccelReg(I2C1, MPU6050_DEVICE_ADDRESS_0, write_reg, databyte);
 }
+
+
+bool MPU6050_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
+{
+	i2c_master_transfer_t masterXfer;
+	memset(&masterXfer, 0, sizeof(masterXfer));
+
+	masterXfer.slaveAddress   = device_addr;
+	masterXfer.direction      = kI2C_Write;
+	masterXfer.subaddress     = reg_addr;
+	masterXfer.subaddressSize = 1;
+	masterXfer.data           = &value;
+	masterXfer.dataSize       = 1;
+	masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+	I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
+
+	/*  wait for transfer completed. */
+	while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag))
+	{
+	}
+
+	MPU6050_nakFlag = false;
+
+	if (MPU6050_completionFlag == true)
+	{
+		MPU6050_completionFlag = false;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool MPU6050_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
+{
+    i2c_master_transfer_t masterXfer;
+    memset(&masterXfer, 0, sizeof(masterXfer));
+    masterXfer.slaveAddress   = device_addr;
+    masterXfer.direction      = kI2C_Read;
+    masterXfer.subaddress     = reg_addr;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data           = rxBuff;
+    masterXfer.dataSize       = rxSize;
+    masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+    I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
+
+    /*  wait for transfer completed. */
+    while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag))
+    {
+    }
+
+    MPU6050_nakFlag = false;
+
+    if (MPU6050_completionFlag == true)
+    {
+        MPU6050_completionFlag = false;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+
+
+void MPU6050_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
+{
+	uint8_t readBuff[6];
+	MPU6050_ReadAccelRegs(I2C1, MPU6050_DEVICE_ADDRESS_0, MPU6050_ACCEL_XOUT_H, readBuff, 6);
+	xyz_accel[0] = (((int16_t)readBuff[0]) << 8) | readBuff[1];
+	xyz_accel[1] = (((int16_t)readBuff[2]) << 8) | readBuff[3];
+	xyz_accel[2] = (((int16_t)readBuff[4]) << 8) | readBuff[5];
+}
+
+void MPU6050_Read_Gyro(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gyro)
+{
+	uint8_t readBuff[6];
+	MPU6050_ReadAccelRegs(I2C1, MPU6050_DEVICE_ADDRESS_0, MPU6050_GYRO_XOUT_H, readBuff, 6);
+	xyz_gyro[0] = (((int16_t)readBuff[0]) << 8) | readBuff[1];
+	xyz_gyro[1] = (((int16_t)readBuff[2]) << 8) | readBuff[3];
+	xyz_gyro[2] = (((int16_t)readBuff[4]) << 8) | readBuff[5];
+}
+
+

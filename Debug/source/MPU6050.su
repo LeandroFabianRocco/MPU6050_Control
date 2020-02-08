@@ -1,4 +1,8 @@
 MPU6050.c:16:6:MPU6050_Init	8	static
 MPU6050.c:22:6:MPU6050_i2c_master_callback	24	static
 MPU6050.c:38:6:MPU6050_ReadSensorWhoAmI	40	static
-MPU6050.c:103:6:MPU6050_Configure_Device	4	static
+MPU6050.c:103:6:MPU6050_Configure_Device	16	static
+MPU6050.c:130:6:MPU6050_WriteAccelReg	40	static
+MPU6050.c:163:6:MPU6050_ReadAccelRegs	48	static
+MPU6050.c:198:6:MPU6050_Read_Accel	40	static
+MPU6050.c:207:6:MPU6050_Read_Gyro	40	static

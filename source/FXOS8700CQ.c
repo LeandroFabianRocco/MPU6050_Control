@@ -184,7 +184,7 @@ void FXOS8700CQ_Configure_Device(void)
 }
 
 
-uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_accel)
+uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
 {
 	uint8_t readBuff[7];
 	FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);
@@ -194,7 +194,7 @@ uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz
 	return readBuff[0];
 }
 
-uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_magnet)
+uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet)
 {
 	uint8_t readBuff[7];
 	FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);

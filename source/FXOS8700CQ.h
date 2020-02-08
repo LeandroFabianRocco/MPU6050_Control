@@ -152,8 +152,8 @@ bool FXOS8700CQ_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
 bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
 void FXOS8700CQ_Init(void);
 void FXOS8700CQ_Configure_Device(void);
-uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_accel);
-uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, uint16_t *xyz_magnet);
+uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel);
+uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet);
 
 
 #endif /* FXOS8700CQ_H_ */
