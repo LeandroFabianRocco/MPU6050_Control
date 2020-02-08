@@ -278,3 +278,22 @@ void MPU6050_Read_Gyro_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gy
 }
 
 
+
+
+/*********************************************************************************************
+ * @brief Get the angular velocity from Gyro
+ *
+ * @param pointer to angular velocity vector -- xyz values
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_GetAngularVelocity(float *omega)
+{
+	int16_t xyz_gyro[3];
+	MPU6050_Read_Gyro_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, xyz_gyro);
+	omega[0] = (float)xyz_gyro[0] / MPU6050_GYRO_FACTOR + 2.5287;
+	omega[1] = (float)xyz_gyro[1] / MPU6050_GYRO_FACTOR - 1.13;
+	omega[2] = (float)xyz_gyro[2] / MPU6050_GYRO_FACTOR - 0.3583;
+}
+
+

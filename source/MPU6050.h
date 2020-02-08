@@ -13,6 +13,9 @@
 /**********************************************************
  * Registros del MPU6050
  *********************************************************/
+// Sensitivity scale factor
+#define MPU6050_ACCEL_FACTOR		16384.0
+#define MPU6050_GYRO_FACTOR			131.0
 // MPU6050 address - Depending of DA0 pin logic
 #define MPU6050_DEVICE_ADDRESS_0 	0x68
 #define MPU6050_DEVICE_ADDRESS_1 	0x69
@@ -191,5 +194,16 @@ void MPU6050_Read_Accel_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_a
  * @return void
  *********************************************************************************************/
 void MPU6050_Read_Gyro_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gyro);
+
+/*********************************************************************************************
+ * @brief Get the angular velocity from Gyro
+ *
+ * @param pointer to angular velocity vector -- xyz values
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_GetAngularVelocity(float *omega);
+
+
 
 #endif /* MPU6050_H_ */

@@ -6,3 +6,6 @@
  */
 
 
+#include "AttitudeLibrary.h"
+
+
