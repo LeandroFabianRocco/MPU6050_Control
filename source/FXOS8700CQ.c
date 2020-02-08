@@ -13,6 +13,16 @@ i2c_master_handle_t g_m_handle;
 //uint8_t g_accel_addr_found = 0x00;
 
 
+/*********************************************************************************************
+ * @brief I2C master callback
+ *
+ * @param base I2C peripheral base address.
+ * @param I2C master handle
+ * @param status success flag
+ * @param user data
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData)
 {
     /* Signal transfer success when received success status. */
@@ -27,6 +37,14 @@ void FXOS8700CQ_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle,
     }
 }
 
+
+/*********************************************************************************************
+ * @brief Gets the WHO_AM_I value
+ *
+ * @param void
+ *
+ * @return status flag. Return true if no error
+ *********************************************************************************************/
 bool FXOS8700CQ_ReadSensorWhoAmI(void)
 {
 	// Definición de variables
@@ -88,6 +106,17 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 	}
 }
 
+
+/*********************************************************************************************
+ * @brief Write sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param data value address
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
 bool FXOS8700CQ_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
 {
     i2c_master_transfer_t masterXfer;
@@ -122,6 +151,18 @@ bool FXOS8700CQ_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
     }
 }
 
+
+/*********************************************************************************************
+ * @brief Read sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param pointer to data read
+ * @param data size
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
 bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
 {
     i2c_master_transfer_t masterXfer;
@@ -154,11 +195,27 @@ bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
     }
 }
 
+
+/*********************************************************************************************
+ * @brief Initialize FXOS8700CQ module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_Init(void)
 {
 	I2C_MasterTransferCreateHandle(I2C0, &g_m_handle, FXOS8700CQ_i2c_master_callback, NULL);
 }
 
+
+/*********************************************************************************************
+ * @brief Configure FXOS8700CQ module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_Configure_Device(void)
 {
 	uint8_t databyte  = 0;
@@ -183,8 +240,16 @@ void FXOS8700CQ_Configure_Device(void)
 	FXOS8700CQ_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
 }
 
-
-uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
+/*********************************************************************************************
+ * @brief Read accelerometer data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return STATUS byte
+ *********************************************************************************************/
+uint8_t FXOS8700CQ_Read_Accel_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
 {
 	uint8_t readBuff[7];
 	FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);
@@ -194,7 +259,17 @@ uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_
 	return readBuff[0];
 }
 
-uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet)
+
+/*********************************************************************************************
+ * @brief Read magnetometer data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return STATUS byte
+ *********************************************************************************************/
+uint8_t FXOS8700CQ_Read_Magnet_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet)
 {
 	uint8_t readBuff[7];
 	FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, readBuff, 7);

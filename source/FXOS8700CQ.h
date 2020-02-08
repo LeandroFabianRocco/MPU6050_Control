@@ -9,6 +9,9 @@
 #define FXOS8700CQ_H_
 
 
+/**********************************************************
+ * Libraries
+ *********************************************************/
 #include "fsl_i2c.h"
 #include "fsl_debug_console.h"
 
@@ -16,13 +19,13 @@
 
 
 /**********************************************************
- * Definición de variables
+ * Variables definition
  *********************************************************/
-// Dirección del Acelerómetro
+// Accel address
 #define FXOS8700CQ_DEVICE_ADDRESS	0x1D
-// Valor del registro WHO_AM_I
+// WHO_AM_I register value
 #define FXOS8700_WHOAMI_VALUE 		0xC7
-// Direcciones de los registros internos
+// Internal register definitions
 #define FXOS8700CQ_STATUS			0x00
 #define FXOS8700CQ_OUT_X_MSB		0x01
 #define FXOS8700CQ_OUT_X_LSB		0x02
@@ -140,20 +143,96 @@
 #define FXOS8700CQ_A_FFMT_THS_Z_LSB	0x78
 
 
-
-
-
-/**********************************************************
- * Definición de funciones
- *********************************************************/
+/*********************************************************************************************
+ * @brief Gets the WHO_AM_I value
+ *
+ * @param void
+ *
+ * @return status flag. Return true if no error
+ *********************************************************************************************/
 bool FXOS8700CQ_ReadSensorWhoAmI(void);
+
+
+/*********************************************************************************************
+ * @brief I2C master callback
+ *
+ * @param base I2C peripheral base address.
+ * @param I2C master handle
+ * @param status success flag
+ * @param user data
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData);
+
+
+/*********************************************************************************************
+ * @brief Write sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param data value address
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
 bool FXOS8700CQ_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
-bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+
+/*********************************************************************************************
+ * @brief Initialize FXOS8700CQ module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_Init(void);
+
+
+/*********************************************************************************************
+ * @brief Configure FXOS8700CQ module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void FXOS8700CQ_Configure_Device(void);
-uint8_t FXOS8700CQ_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel);
-uint8_t FXOS8700CQ_Read_Magnet(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet);
+
+
+/*********************************************************************************************
+ * @brief Read sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param pointer to data read
+ * @param data size
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
+bool FXOS8700CQ_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+
+
+/*********************************************************************************************
+ * @brief Read accelerometer data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return STATUS byte
+ *********************************************************************************************/
+uint8_t FXOS8700CQ_Read_Accel_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel);
+
+/*********************************************************************************************
+ * @brief Read magnetometer data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return STATUS byte
+ *********************************************************************************************/
+uint8_t FXOS8700CQ_Read_Magnet_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_magnet);
 
 
 #endif /* FXOS8700CQ_H_ */

@@ -9,16 +9,37 @@
 
 #include "MPU6050.h"
 
+
+/*********************************************************************************************
+ * Variable definitions
+ *********************************************************************************************/
 volatile bool MPU6050_nakFlag        = false;
 volatile bool MPU6050_completionFlag = false;
 i2c_master_handle_t mpu_g_m_handle;
 
+
+/*********************************************************************************************
+ * @brief Initialize MPU6050 module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void MPU6050_Init(void)
 {
 	I2C_MasterTransferCreateHandle(I2C1, &mpu_g_m_handle, MPU6050_i2c_master_callback, NULL);
 }
 
-
+/*********************************************************************************************
+ * @brief I2C master callback
+ *
+ * @param base I2C peripheral base address.
+ * @param I2C master handle
+ * @param status success flag
+ * @param user data
+ *
+ * @return void
+ *********************************************************************************************/
 void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData)
 {
     /* Signal transfer success when received success status. */
@@ -34,7 +55,13 @@ void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, st
 }
 
 
-
+/*********************************************************************************************
+ * @brief Gets the WHO_AM_I value
+ *
+ * @param void
+ *
+ * @return status flag. Return true if no error
+ *********************************************************************************************/
 bool MPU6050_ReadSensorWhoAmI(void)
 {
 	// Definición de variables
@@ -99,7 +126,13 @@ bool MPU6050_ReadSensorWhoAmI(void)
 	}
 }
 
-
+/*********************************************************************************************
+ * @brief Configure MPU6050 module
+ *
+ * @param void
+ *
+ * @return void
+ *********************************************************************************************/
 void MPU6050_Configure_Device(void)
 {
 	uint8_t databyte  = 0;
@@ -126,7 +159,16 @@ void MPU6050_Configure_Device(void)
 	MPU6050_WriteAccelReg(I2C1, MPU6050_DEVICE_ADDRESS_0, write_reg, databyte);
 }
 
-
+/*********************************************************************************************
+ * @brief Write sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param data value address
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
 bool MPU6050_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
 {
 	i2c_master_transfer_t masterXfer;
@@ -160,6 +202,18 @@ bool MPU6050_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr
 	}
 }
 
+
+/*********************************************************************************************
+ * @brief Read sensor register
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param register address
+ * @param pointer to data read
+ * @param data size
+ *
+ * @return status flag. True if success
+ *********************************************************************************************/
 bool MPU6050_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
 {
     i2c_master_transfer_t masterXfer;
@@ -194,8 +248,16 @@ bool MPU6050_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr
 
 
 
-
-void MPU6050_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
+/*********************************************************************************************
+ * @brief Read accelerometer data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_Read_Accel_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
 {
 	uint8_t readBuff[6];
 	MPU6050_ReadAccelRegs(I2C1, MPU6050_DEVICE_ADDRESS_0, MPU6050_ACCEL_XOUT_H, readBuff, 6);
@@ -204,7 +266,16 @@ void MPU6050_Read_Accel(I2C_Type *base, uint8_t device_addr, int16_t *xyz_accel)
 	xyz_accel[2] = (((int16_t)readBuff[4]) << 8) | readBuff[5];
 }
 
-void MPU6050_Read_Gyro(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gyro)
+/*********************************************************************************************
+ * @brief Read gyroscope data
+ *
+ * @param base I2C peripheral base address.
+ * @param sensor device address
+ * @param XYZ readings
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_Read_Gyro_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gyro)
 {
 	uint8_t readBuff[6];
 	MPU6050_ReadAccelRegs(I2C1, MPU6050_DEVICE_ADDRESS_0, MPU6050_GYRO_XOUT_H, readBuff, 6);

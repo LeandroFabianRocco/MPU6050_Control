@@ -5651,12 +5651,12 @@ END GROUP
  .text.FXOS8700CQ_Configure_Device
                 0x00000000000006c4       0x6c ./source/FXOS8700CQ.o
                 0x00000000000006c4                FXOS8700CQ_Configure_Device
- .text.FXOS8700CQ_Read_Accel
+ .text.FXOS8700CQ_Read_Accel_Data
                 0x0000000000000730       0x84 ./source/FXOS8700CQ.o
-                0x0000000000000730                FXOS8700CQ_Read_Accel
- .text.FXOS8700CQ_Read_Magnet
+                0x0000000000000730                FXOS8700CQ_Read_Accel_Data
+ .text.FXOS8700CQ_Read_Magnet_Data
                 0x00000000000007b4       0x84 ./source/FXOS8700CQ.o
-                0x00000000000007b4                FXOS8700CQ_Read_Magnet
+                0x00000000000007b4                FXOS8700CQ_Read_Magnet_Data
  .text.MPU6050_Init
                 0x0000000000000838       0x20 ./source/MPU6050.o
                 0x0000000000000838                MPU6050_Init
@@ -5675,12 +5675,12 @@ END GROUP
  .text.MPU6050_ReadAccelRegs
                 0x0000000000000ac0       0xa0 ./source/MPU6050.o
                 0x0000000000000ac0                MPU6050_ReadAccelRegs
- .text.MPU6050_Read_Accel
+ .text.MPU6050_Read_Accel_Data
                 0x0000000000000b60       0x68 ./source/MPU6050.o
-                0x0000000000000b60                MPU6050_Read_Accel
- .text.MPU6050_Read_Gyro
+                0x0000000000000b60                MPU6050_Read_Accel_Data
+ .text.MPU6050_Read_Gyro_Data
                 0x0000000000000bc8       0x68 ./source/MPU6050.o
-                0x0000000000000bc8                MPU6050_Read_Gyro
+                0x0000000000000bc8                MPU6050_Read_Gyro_Data
  .text.main     0x0000000000000c30      0x114 ./source/MPU6050_Control.o
                 0x0000000000000c30                main
  .text.CLOCK_SetEr32kClock
@@ -6711,47 +6711,47 @@ END GROUP
                 0x0000000000004d80                _image_size = (_image_end - _image_start)
 OUTPUT(MPU6050_Control.axf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0x195c7
+.debug_info     0x0000000000000000    0x195d6
  .debug_info    0x0000000000000000      0x92e ./startup/startup_mk64f12.o
- .debug_info    0x000000000000092e      0xa87 ./source/FXOS8700CQ.o
- .debug_info    0x00000000000013b5      0x95a ./source/MPU6050.o
- .debug_info    0x0000000000001d0f      0xa71 ./source/MPU6050_Control.o
- .debug_info    0x0000000000002780       0x3c ./source/semihost_hardfault.o
- .debug_info    0x00000000000027bc     0x21b2 ./drivers/fsl_clock.o
- .debug_info    0x000000000000496e     0x25b0 ./drivers/fsl_dspi.o
- .debug_info    0x0000000000006f1e     0x22d5 ./drivers/fsl_edma.o
- .debug_info    0x00000000000091f3     0x26c8 ./drivers/fsl_enet.o
- .debug_info    0x000000000000b8bb     0x23ea ./drivers/fsl_flexcan.o
- .debug_info    0x000000000000dca5     0x1ef4 ./drivers/fsl_i2c.o
- .debug_info    0x000000000000fb99     0x2f0d ./drivers/fsl_sai.o
- .debug_info    0x0000000000012aa6     0x2206 ./drivers/fsl_sdhc.o
- .debug_info    0x0000000000014cac     0x1c98 ./drivers/fsl_uart.o
- .debug_info    0x0000000000016944      0x69f ./device/system_MK64F12.o
- .debug_info    0x0000000000016fe3      0x672 ./board/board.o
- .debug_info    0x0000000000017655      0xcd8 ./board/clock_config.o
- .debug_info    0x000000000001832d      0x5ec ./board/peripherals.o
- .debug_info    0x0000000000018919      0xcae ./board/pin_mux.o
+ .debug_info    0x000000000000092e      0xa8c ./source/FXOS8700CQ.o
+ .debug_info    0x00000000000013ba      0x964 ./source/MPU6050.o
+ .debug_info    0x0000000000001d1e      0xa71 ./source/MPU6050_Control.o
+ .debug_info    0x000000000000278f       0x3c ./source/semihost_hardfault.o
+ .debug_info    0x00000000000027cb     0x21b2 ./drivers/fsl_clock.o
+ .debug_info    0x000000000000497d     0x25b0 ./drivers/fsl_dspi.o
+ .debug_info    0x0000000000006f2d     0x22d5 ./drivers/fsl_edma.o
+ .debug_info    0x0000000000009202     0x26c8 ./drivers/fsl_enet.o
+ .debug_info    0x000000000000b8ca     0x23ea ./drivers/fsl_flexcan.o
+ .debug_info    0x000000000000dcb4     0x1ef4 ./drivers/fsl_i2c.o
+ .debug_info    0x000000000000fba8     0x2f0d ./drivers/fsl_sai.o
+ .debug_info    0x0000000000012ab5     0x2206 ./drivers/fsl_sdhc.o
+ .debug_info    0x0000000000014cbb     0x1c98 ./drivers/fsl_uart.o
+ .debug_info    0x0000000000016953      0x69f ./device/system_MK64F12.o
+ .debug_info    0x0000000000016ff2      0x672 ./board/board.o
+ .debug_info    0x0000000000017664      0xcd8 ./board/clock_config.o
+ .debug_info    0x000000000001833c      0x5ec ./board/peripherals.o
+ .debug_info    0x0000000000018928      0xcae ./board/pin_mux.o
 
-.debug_abbrev   0x0000000000000000     0x2f3e
+.debug_abbrev   0x0000000000000000     0x2fbc
  .debug_abbrev  0x0000000000000000      0x17a ./startup/startup_mk64f12.o
- .debug_abbrev  0x000000000000017a      0x1e6 ./source/FXOS8700CQ.o
- .debug_abbrev  0x0000000000000360      0x1e8 ./source/MPU6050.o
- .debug_abbrev  0x0000000000000548      0x1bd ./source/MPU6050_Control.o
- .debug_abbrev  0x0000000000000705       0x31 ./source/semihost_hardfault.o
- .debug_abbrev  0x0000000000000736      0x371 ./drivers/fsl_clock.o
- .debug_abbrev  0x0000000000000aa7      0x399 ./drivers/fsl_dspi.o
- .debug_abbrev  0x0000000000000e40      0x3fd ./drivers/fsl_edma.o
- .debug_abbrev  0x000000000000123d      0x2fc ./drivers/fsl_enet.o
- .debug_abbrev  0x0000000000001539      0x323 ./drivers/fsl_flexcan.o
- .debug_abbrev  0x000000000000185c      0x3a6 ./drivers/fsl_i2c.o
- .debug_abbrev  0x0000000000001c02      0x309 ./drivers/fsl_sai.o
- .debug_abbrev  0x0000000000001f0b      0x32b ./drivers/fsl_sdhc.o
- .debug_abbrev  0x0000000000002236      0x358 ./drivers/fsl_uart.o
- .debug_abbrev  0x000000000000258e      0x170 ./device/system_MK64F12.o
- .debug_abbrev  0x00000000000026fe      0x1a0 ./board/board.o
- .debug_abbrev  0x000000000000289e      0x265 ./board/clock_config.o
- .debug_abbrev  0x0000000000002b03      0x155 ./board/peripherals.o
- .debug_abbrev  0x0000000000002c58      0x2e6 ./board/pin_mux.o
+ .debug_abbrev  0x000000000000017a      0x226 ./source/FXOS8700CQ.o
+ .debug_abbrev  0x00000000000003a0      0x226 ./source/MPU6050.o
+ .debug_abbrev  0x00000000000005c6      0x1bd ./source/MPU6050_Control.o
+ .debug_abbrev  0x0000000000000783       0x31 ./source/semihost_hardfault.o
+ .debug_abbrev  0x00000000000007b4      0x371 ./drivers/fsl_clock.o
+ .debug_abbrev  0x0000000000000b25      0x399 ./drivers/fsl_dspi.o
+ .debug_abbrev  0x0000000000000ebe      0x3fd ./drivers/fsl_edma.o
+ .debug_abbrev  0x00000000000012bb      0x2fc ./drivers/fsl_enet.o
+ .debug_abbrev  0x00000000000015b7      0x323 ./drivers/fsl_flexcan.o
+ .debug_abbrev  0x00000000000018da      0x3a6 ./drivers/fsl_i2c.o
+ .debug_abbrev  0x0000000000001c80      0x309 ./drivers/fsl_sai.o
+ .debug_abbrev  0x0000000000001f89      0x32b ./drivers/fsl_sdhc.o
+ .debug_abbrev  0x00000000000022b4      0x358 ./drivers/fsl_uart.o
+ .debug_abbrev  0x000000000000260c      0x170 ./device/system_MK64F12.o
+ .debug_abbrev  0x000000000000277c      0x1a0 ./board/board.o
+ .debug_abbrev  0x000000000000291c      0x265 ./board/clock_config.o
+ .debug_abbrev  0x0000000000002b81      0x155 ./board/peripherals.o
+ .debug_abbrev  0x0000000000002cd6      0x2e6 ./board/pin_mux.o
 
 .debug_aranges  0x0000000000000000     0x1570
  .debug_aranges
@@ -6814,109 +6814,109 @@ OUTPUT(MPU6050_Control.axf elf32-littlearm)
  .debug_ranges  0x00000000000013b8       0x28 ./board/peripherals.o
  .debug_ranges  0x00000000000013e0       0x78 ./board/pin_mux.o
 
-.debug_macro    0x0000000000000000     0x2735
+.debug_macro    0x0000000000000000     0x273b
  .debug_macro   0x0000000000000000       0x29 ./startup/startup_mk64f12.o
  .debug_macro   0x0000000000000029      0x15e ./source/FXOS8700CQ.o
  .debug_macro   0x0000000000000187       0x1c ./source/FXOS8700CQ.o
  .debug_macro   0x00000000000001a3       0x22 ./source/FXOS8700CQ.o
  .debug_macro   0x00000000000001c5       0x1c ./source/FXOS8700CQ.o
  .debug_macro   0x00000000000001e1       0x16 ./source/FXOS8700CQ.o
- .debug_macro   0x00000000000001f7      0x2cf ./source/FXOS8700CQ.o
- .debug_macro   0x00000000000004c6      0x10c ./source/MPU6050.o
- .debug_macro   0x00000000000005d2      0x208 ./source/MPU6050.o
- .debug_macro   0x00000000000007da      0x1a2 ./source/MPU6050_Control.o
- .debug_macro   0x000000000000097c       0xd8 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000a54       0x16 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000a6a       0x10 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000a7a       0x16 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000a90      0x1f1 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000c81       0x22 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000ca3       0x28 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000ccb      0x201 ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000ecc       0x2e ./source/MPU6050_Control.o
- .debug_macro   0x0000000000000efa      0x2d5 ./source/MPU6050_Control.o
- .debug_macro   0x00000000000011cf      0x20e ./source/MPU6050_Control.o
- .debug_macro   0x00000000000013dd       0x11 ./source/semihost_hardfault.o
- .debug_macro   0x00000000000013ee      0x1ba ./drivers/fsl_clock.o
- .debug_macro   0x00000000000015a8      0x103 ./drivers/fsl_dspi.o
- .debug_macro   0x00000000000016ab       0x3a ./drivers/fsl_dspi.o
- .debug_macro   0x00000000000016e5      0x109 ./drivers/fsl_edma.o
- .debug_macro   0x00000000000017ee       0x10 ./drivers/fsl_edma.o
- .debug_macro   0x00000000000017fe      0x1db ./drivers/fsl_enet.o
- .debug_macro   0x00000000000019d9       0xc3 ./drivers/fsl_enet.o
- .debug_macro   0x0000000000001a9c      0x1ab ./drivers/fsl_flexcan.o
- .debug_macro   0x0000000000001c47       0xd0 ./drivers/fsl_flexcan.o
- .debug_macro   0x0000000000001d17      0x103 ./drivers/fsl_i2c.o
- .debug_macro   0x0000000000001e1a      0x109 ./drivers/fsl_sai.o
- .debug_macro   0x0000000000001f23       0x11 ./drivers/fsl_sai.o
- .debug_macro   0x0000000000001f34      0x121 ./drivers/fsl_sdhc.o
- .debug_macro   0x0000000000002055       0x64 ./drivers/fsl_sdhc.o
- .debug_macro   0x00000000000020b9      0x10a ./drivers/fsl_uart.o
- .debug_macro   0x00000000000021c3       0x98 ./device/system_MK64F12.o
- .debug_macro   0x000000000000225b      0x16c ./board/board.o
- .debug_macro   0x00000000000023c7      0x15f ./board/clock_config.o
- .debug_macro   0x0000000000002526      0x106 ./board/peripherals.o
- .debug_macro   0x000000000000262c      0x109 ./board/pin_mux.o
+ .debug_macro   0x00000000000001f7      0x2d2 ./source/FXOS8700CQ.o
+ .debug_macro   0x00000000000004c9      0x10c ./source/MPU6050.o
+ .debug_macro   0x00000000000005d5      0x208 ./source/MPU6050.o
+ .debug_macro   0x00000000000007dd      0x1a2 ./source/MPU6050_Control.o
+ .debug_macro   0x000000000000097f       0xd8 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000a57       0x16 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000a6d       0x10 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000a7d       0x16 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000a93      0x1f1 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000c84       0x22 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000ca6       0x28 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000cce      0x201 ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000ecf       0x2e ./source/MPU6050_Control.o
+ .debug_macro   0x0000000000000efd      0x2d8 ./source/MPU6050_Control.o
+ .debug_macro   0x00000000000011d5      0x20e ./source/MPU6050_Control.o
+ .debug_macro   0x00000000000013e3       0x11 ./source/semihost_hardfault.o
+ .debug_macro   0x00000000000013f4      0x1ba ./drivers/fsl_clock.o
+ .debug_macro   0x00000000000015ae      0x103 ./drivers/fsl_dspi.o
+ .debug_macro   0x00000000000016b1       0x3a ./drivers/fsl_dspi.o
+ .debug_macro   0x00000000000016eb      0x109 ./drivers/fsl_edma.o
+ .debug_macro   0x00000000000017f4       0x10 ./drivers/fsl_edma.o
+ .debug_macro   0x0000000000001804      0x1db ./drivers/fsl_enet.o
+ .debug_macro   0x00000000000019df       0xc3 ./drivers/fsl_enet.o
+ .debug_macro   0x0000000000001aa2      0x1ab ./drivers/fsl_flexcan.o
+ .debug_macro   0x0000000000001c4d       0xd0 ./drivers/fsl_flexcan.o
+ .debug_macro   0x0000000000001d1d      0x103 ./drivers/fsl_i2c.o
+ .debug_macro   0x0000000000001e20      0x109 ./drivers/fsl_sai.o
+ .debug_macro   0x0000000000001f29       0x11 ./drivers/fsl_sai.o
+ .debug_macro   0x0000000000001f3a      0x121 ./drivers/fsl_sdhc.o
+ .debug_macro   0x000000000000205b       0x64 ./drivers/fsl_sdhc.o
+ .debug_macro   0x00000000000020bf      0x10a ./drivers/fsl_uart.o
+ .debug_macro   0x00000000000021c9       0x98 ./device/system_MK64F12.o
+ .debug_macro   0x0000000000002261      0x16c ./board/board.o
+ .debug_macro   0x00000000000023cd      0x15f ./board/clock_config.o
+ .debug_macro   0x000000000000252c      0x106 ./board/peripherals.o
+ .debug_macro   0x0000000000002632      0x109 ./board/pin_mux.o
 
-.debug_line     0x0000000000000000     0xe992
+.debug_line     0x0000000000000000     0xe993
  .debug_line    0x0000000000000000      0x90e ./startup/startup_mk64f12.o
  .debug_line    0x000000000000090e      0x6d9 ./source/FXOS8700CQ.o
- .debug_line    0x0000000000000fe7      0x591 ./source/MPU6050.o
- .debug_line    0x0000000000001578      0x57a ./source/MPU6050_Control.o
- .debug_line    0x0000000000001af2       0x5a ./source/semihost_hardfault.o
- .debug_line    0x0000000000001b4c     0x14ab ./drivers/fsl_clock.o
- .debug_line    0x0000000000002ff7     0x17a0 ./drivers/fsl_dspi.o
- .debug_line    0x0000000000004797     0x1292 ./drivers/fsl_edma.o
- .debug_line    0x0000000000005a29     0x1126 ./drivers/fsl_enet.o
- .debug_line    0x0000000000006b4f     0x1357 ./drivers/fsl_flexcan.o
- .debug_line    0x0000000000007ea6     0x13d6 ./drivers/fsl_i2c.o
- .debug_line    0x000000000000927c     0x1bf8 ./drivers/fsl_sai.o
- .debug_line    0x000000000000ae74     0x10ce ./drivers/fsl_sdhc.o
- .debug_line    0x000000000000bf42     0x1314 ./drivers/fsl_uart.o
- .debug_line    0x000000000000d256      0x3e4 ./device/system_MK64F12.o
- .debug_line    0x000000000000d63a      0x4a8 ./board/board.o
- .debug_line    0x000000000000dae2      0x4fb ./board/clock_config.o
- .debug_line    0x000000000000dfdd      0x390 ./board/peripherals.o
- .debug_line    0x000000000000e36d      0x625 ./board/pin_mux.o
+ .debug_line    0x0000000000000fe7      0x592 ./source/MPU6050.o
+ .debug_line    0x0000000000001579      0x57a ./source/MPU6050_Control.o
+ .debug_line    0x0000000000001af3       0x5a ./source/semihost_hardfault.o
+ .debug_line    0x0000000000001b4d     0x14ab ./drivers/fsl_clock.o
+ .debug_line    0x0000000000002ff8     0x17a0 ./drivers/fsl_dspi.o
+ .debug_line    0x0000000000004798     0x1292 ./drivers/fsl_edma.o
+ .debug_line    0x0000000000005a2a     0x1126 ./drivers/fsl_enet.o
+ .debug_line    0x0000000000006b50     0x1357 ./drivers/fsl_flexcan.o
+ .debug_line    0x0000000000007ea7     0x13d6 ./drivers/fsl_i2c.o
+ .debug_line    0x000000000000927d     0x1bf8 ./drivers/fsl_sai.o
+ .debug_line    0x000000000000ae75     0x10ce ./drivers/fsl_sdhc.o
+ .debug_line    0x000000000000bf43     0x1314 ./drivers/fsl_uart.o
+ .debug_line    0x000000000000d257      0x3e4 ./device/system_MK64F12.o
+ .debug_line    0x000000000000d63b      0x4a8 ./board/board.o
+ .debug_line    0x000000000000dae3      0x4fb ./board/clock_config.o
+ .debug_line    0x000000000000dfde      0x390 ./board/peripherals.o
+ .debug_line    0x000000000000e36e      0x625 ./board/pin_mux.o
 
-.debug_str      0x0000000000000000    0x8b32a
+.debug_str      0x0000000000000000    0x8b33e
  .debug_str     0x0000000000000000     0x3677 ./startup/startup_mk64f12.o
                                        0x372a (size before relaxing)
- .debug_str     0x0000000000003677    0x78315 ./source/FXOS8700CQ.o
-                                      0x7b2b8 (size before relaxing)
- .debug_str     0x000000000007b98c      0xa12 ./source/MPU6050.o
-                                      0x7a782 (size before relaxing)
- .debug_str     0x000000000007c39e     0x1a75 ./source/MPU6050_Control.o
+ .debug_str     0x0000000000003677    0x7831f ./source/FXOS8700CQ.o
+                                      0x7b2c2 (size before relaxing)
+ .debug_str     0x000000000007b996      0xa1c ./source/MPU6050.o
+                                      0x7a78c (size before relaxing)
+ .debug_str     0x000000000007c3b2     0x1a75 ./source/MPU6050_Control.o
                                       0x7d291 (size before relaxing)
- .debug_str     0x000000000007de13       0x1f ./source/semihost_hardfault.o
+ .debug_str     0x000000000007de27       0x1f ./source/semihost_hardfault.o
                                        0x2ebb (size before relaxing)
- .debug_str     0x000000000007de32     0x1b32 ./drivers/fsl_clock.o
+ .debug_str     0x000000000007de46     0x1b32 ./drivers/fsl_clock.o
                                       0x7b76c (size before relaxing)
- .debug_str     0x000000000007f964     0x18eb ./drivers/fsl_dspi.o
+ .debug_str     0x000000000007f978     0x18eb ./drivers/fsl_dspi.o
                                       0x7b602 (size before relaxing)
- .debug_str     0x000000000008124f     0x1079 ./drivers/fsl_edma.o
+ .debug_str     0x0000000000081263     0x1079 ./drivers/fsl_edma.o
                                       0x7b24c (size before relaxing)
- .debug_str     0x00000000000822c8     0x1d48 ./drivers/fsl_enet.o
+ .debug_str     0x00000000000822dc     0x1d48 ./drivers/fsl_enet.o
                                       0x7c02d (size before relaxing)
- .debug_str     0x0000000000084010     0x250b ./drivers/fsl_flexcan.o
+ .debug_str     0x0000000000084024     0x250b ./drivers/fsl_flexcan.o
                                       0x7c6f3 (size before relaxing)
- .debug_str     0x000000000008651b      0x847 ./drivers/fsl_i2c.o
+ .debug_str     0x000000000008652f      0x847 ./drivers/fsl_i2c.o
                                       0x7ae7a (size before relaxing)
- .debug_str     0x0000000000086d62     0x1248 ./drivers/fsl_sai.o
+ .debug_str     0x0000000000086d76     0x1248 ./drivers/fsl_sai.o
                                       0x7b496 (size before relaxing)
- .debug_str     0x0000000000087faa     0x1800 ./drivers/fsl_sdhc.o
+ .debug_str     0x0000000000087fbe     0x1800 ./drivers/fsl_sdhc.o
                                       0x7ba12 (size before relaxing)
- .debug_str     0x00000000000897aa      0xda7 ./drivers/fsl_uart.o
+ .debug_str     0x00000000000897be      0xda7 ./drivers/fsl_uart.o
                                       0x7afb7 (size before relaxing)
- .debug_str     0x000000000008a551      0x10a ./device/system_MK64F12.o
+ .debug_str     0x000000000008a565      0x10a ./device/system_MK64F12.o
                                       0x7821d (size before relaxing)
- .debug_str     0x000000000008a65b       0xb4 ./board/board.o
+ .debug_str     0x000000000008a66f       0xb4 ./board/board.o
                                       0x7ab16 (size before relaxing)
- .debug_str     0x000000000008a70f      0x455 ./board/clock_config.o
+ .debug_str     0x000000000008a723      0x455 ./board/clock_config.o
                                       0x7a27a (size before relaxing)
- .debug_str     0x000000000008ab64       0x5b ./board/peripherals.o
+ .debug_str     0x000000000008ab78       0x5b ./board/peripherals.o
                                       0x79d49 (size before relaxing)
- .debug_str     0x000000000008abbf      0x76b ./board/pin_mux.o
+ .debug_str     0x000000000008abd3      0x76b ./board/pin_mux.o
                                       0x7a3d3 (size before relaxing)
 
 .comment        0x0000000000000000       0x76
@@ -7560,9 +7560,9 @@ FXOS8700CQ_ReadAccelRegs                          ./source/FXOS8700CQ.o
                                                   ./source/MPU6050_Control.o
 FXOS8700CQ_ReadSensorWhoAmI                       ./source/FXOS8700CQ.o
                                                   ./source/MPU6050_Control.o
-FXOS8700CQ_Read_Accel                             ./source/FXOS8700CQ.o
+FXOS8700CQ_Read_Accel_Data                        ./source/FXOS8700CQ.o
                                                   ./source/MPU6050_Control.o
-FXOS8700CQ_Read_Magnet                            ./source/FXOS8700CQ.o
+FXOS8700CQ_Read_Magnet_Data                       ./source/FXOS8700CQ.o
                                                   ./source/MPU6050_Control.o
 FXOS8700CQ_WriteAccelReg                          ./source/FXOS8700CQ.o
 FXOS8700CQ_i2c_master_callback                    ./source/FXOS8700CQ.o
@@ -7687,9 +7687,9 @@ MPU6050_Init                                      ./source/MPU6050.o
 MPU6050_ReadAccelRegs                             ./source/MPU6050.o
 MPU6050_ReadSensorWhoAmI                          ./source/MPU6050.o
                                                   ./source/MPU6050_Control.o
-MPU6050_Read_Accel                                ./source/MPU6050.o
+MPU6050_Read_Accel_Data                           ./source/MPU6050.o
                                                   ./source/MPU6050_Control.o
-MPU6050_Read_Gyro                                 ./source/MPU6050.o
+MPU6050_Read_Gyro_Data                            ./source/MPU6050.o
                                                   ./source/MPU6050_Control.o
 MPU6050_WriteAccelReg                             ./source/MPU6050.o
 MPU6050_completionFlag                            ./source/MPU6050.o
