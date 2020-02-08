@@ -64,24 +64,22 @@ void MPU6050_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, st
  *********************************************************************************************/
 bool MPU6050_ReadSensorWhoAmI(void)
 {
-	// Definición de variables
-	uint8_t who_am_i_reg          = MPU6050_WHO_AM_I;	// Dirección del registro
-	uint8_t who_am_i_value        = 0x00;					// Valor devuelto
-	bool find_device              = false;					// Flag de dispositivo encontrado
+	uint8_t who_am_i_reg          = MPU6050_WHO_AM_I;
+	uint8_t who_am_i_value        = 0x00;
+	bool find_device              = false;
 	i2c_master_transfer_t masterXfer;
 	memset(&masterXfer, 0, sizeof(masterXfer));
 
 	// START + Slave_address (write_bit); Reg_address
-	masterXfer.slaveAddress   = MPU6050_DEVICE_ADDRESS_0;	// Envío la dirección del dispositivo
-	masterXfer.direction      = kI2C_Write;					// Operación de escritura
+	masterXfer.slaveAddress   = MPU6050_DEVICE_ADDRESS_0;
+	masterXfer.direction      = kI2C_Write;
 	masterXfer.subaddress     = 0;
 	masterXfer.subaddressSize = 0;
-	masterXfer.data           = &who_am_i_reg;				// Dirección del registro WHO_AM_I
+	masterXfer.data           = &who_am_i_reg;
 	masterXfer.dataSize       = 1;
 	masterXfer.flags          = kI2C_TransferNoStopFlag;
 	I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
 
-	// Espero a que la transmisión se complete
 	while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag)){}
 	MPU6050_nakFlag = false;
 
@@ -90,10 +88,6 @@ bool MPU6050_ReadSensorWhoAmI(void)
 		MPU6050_completionFlag     = false;
 		find_device        = true;
 	}
-	/*else
-	{
-		PRINTF("No se pudo conectar con el dispositivo.");
-	}*/
 
 	if (find_device == true)
 	{
@@ -106,7 +100,6 @@ bool MPU6050_ReadSensorWhoAmI(void)
 		masterXfer.flags          = kI2C_TransferRepeatedStartFlag;
 		I2C_MasterTransferNonBlocking(I2C1, &mpu_g_m_handle, &masterXfer);
 
-		// Espero a que la transmisión se complete
 		while ((!MPU6050_nakFlag) && (!MPU6050_completionFlag)){}
 		MPU6050_nakFlag = false;
 	}

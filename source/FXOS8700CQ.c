@@ -7,10 +7,13 @@
 
 #include "FXOS8700CQ.h"
 
+
+/*********************************************************************************************
+ * Variable definitions
+ *********************************************************************************************/
 volatile bool completionFlag = false;
 volatile bool nakFlag        = false;
 i2c_master_handle_t g_m_handle;
-//uint8_t g_accel_addr_found = 0x00;
 
 
 /*********************************************************************************************
@@ -47,24 +50,22 @@ void FXOS8700CQ_i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle,
  *********************************************************************************************/
 bool FXOS8700CQ_ReadSensorWhoAmI(void)
 {
-	// Definición de variables
-	uint8_t who_am_i_reg          = FXOS8700CQ_WHO_AM_I;	// Dirección del registro
-	uint8_t who_am_i_value        = 0x00;					// Valor devuelto
-	bool find_device              = false;					// Flag de dispositivo encontrado
+	uint8_t who_am_i_reg          = FXOS8700CQ_WHO_AM_I;
+	uint8_t who_am_i_value        = 0x00;
+	bool find_device              = false;
 	i2c_master_transfer_t masterXfer;
 	memset(&masterXfer, 0, sizeof(masterXfer));
 
 	// START + Slave_address (write_bit); Reg_address
-	masterXfer.slaveAddress   = FXOS8700CQ_DEVICE_ADDRESS;	// Envío la dirección del dispositivo
-	masterXfer.direction      = kI2C_Write;					// Operación de escritura
+	masterXfer.slaveAddress   = FXOS8700CQ_DEVICE_ADDRESS;
+	masterXfer.direction      = kI2C_Write;
 	masterXfer.subaddress     = 0;
 	masterXfer.subaddressSize = 0;
-	masterXfer.data           = &who_am_i_reg;				// Dirección del registro WHO_AM_I
+	masterXfer.data           = &who_am_i_reg;
 	masterXfer.dataSize       = 1;
 	masterXfer.flags          = kI2C_TransferNoStopFlag;
 	I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
 
-	// Espero a que la transmisión se complete
 	while ((!nakFlag) && (!completionFlag)){}
 	nakFlag = false;
 
@@ -73,14 +74,10 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 		completionFlag     = false;
 		find_device        = true;
 	}
-	/*else
-	{
-		PRINTF("No se pudo conectar con el dispositivo.");
-	}*/
 
 	if (find_device == true)
 	{
-		// START + Slave_address (read_bit); recibo dato
+		// START + Slave_address (read_bit);
 		masterXfer.direction      = kI2C_Read;
 		masterXfer.subaddress     = 0;
 		masterXfer.subaddressSize = 0;
@@ -89,7 +86,6 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 		masterXfer.flags          = kI2C_TransferRepeatedStartFlag;
 		I2C_MasterTransferNonBlocking(I2C0, &g_m_handle, &masterXfer);
 
-		// Espero a que la transmisión se complete
 		while ((!nakFlag) && (!completionFlag)){}
 		nakFlag = false;
 	}
@@ -97,7 +93,6 @@ bool FXOS8700CQ_ReadSensorWhoAmI(void)
 	completionFlag = false;
 	if (who_am_i_value == FXOS8700_WHOAMI_VALUE)
 	{
-		//PRINTF("Conexión con FXOS8700CQ establecida, la dirección del dispositivo es 0x%x . \r\n", masterXfer.slaveAddress);
 		return true;
 	}
 	else
@@ -229,14 +224,14 @@ void FXOS8700CQ_Configure_Device(void)
 	write_reg = FXOS8700CQ_XYZ_DATA_CFG;
 	databyte  = 0x01;
 	FXOS8700CQ_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
-	// Activo el acelerómetro
+	// Accel disabled
 	write_reg = FXOS8700CQ_CTRL_REG1;
 	databyte  = 0x0D;
 	FXOS8700CQ_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
 
 	// Magnetómetro
 	write_reg = FXOS8700CQ_M_CTRL_REG1;
-	databyte = 3; // Dos sensores en funcionamiento
+	databyte = 3;
 	FXOS8700CQ_WriteAccelReg(I2C0, FXOS8700CQ_DEVICE_ADDRESS, write_reg, databyte);
 }
 

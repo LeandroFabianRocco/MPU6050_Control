@@ -76,11 +76,12 @@ int main(void) {
 
     while(1)
     {
-    	if (isThereAccelFX)
+    	if ((isThereAccelFX) & (isThereAccelMPU))
 		{
 			uint8_t status0_value = 0;
-			int16_t a_xyz[3];
 			int16_t m_xyz[3];
+			int16_t a_xyz[3];
+			int16_t g_xyz[3];
 
 			status0_value = 0;
 			while (status0_value != 0xff)
@@ -88,19 +89,10 @@ int main(void) {
 				FXOS8700CQ_ReadAccelRegs(I2C0, FXOS8700CQ_DEVICE_ADDRESS, FXOS8700CQ_STATUS, &status0_value, 1);
 			}
 
-			status0_value = FXOS8700CQ_Read_Accel_Data(I2C0, FXOS8700CQ_DEVICE_ADDRESS, a_xyz);
 			status0_value = FXOS8700CQ_Read_Magnet_Data(I2C0, FXOS8700CQ_DEVICE_ADDRESS, m_xyz);
-			//PRINTF("ax = %5d , ay = %5d , az = %5d, mx = %5d, my = %5d, mz = %5d \r\n", a_xyz[0], a_xyz[1], a_xyz[2], m_xyz[0], m_xyz[1], m_xyz[2]);
-		}
-
-    	if (isThereAccelMPU)
-    	{
-    		int16_t a_xyz_mpu[3];
-    		int16_t g_xyz_mpu[3];
-
-    		MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, a_xyz_mpu);
-    		MPU6050_Read_Gyro_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, g_xyz_mpu);
-    		PRINTF("ax = %5d , ay = %5d , az = %5d, gx = %5d , gy = %5d , gz = %5d \r\n", a_xyz_mpu[0], a_xyz_mpu[1], a_xyz_mpu[2], g_xyz_mpu[0], g_xyz_mpu[1], g_xyz_mpu[2]);
+    		MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, a_xyz);
+    		MPU6050_Read_Gyro_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, g_xyz);
+    		PRINTF("ax = %5d , ay = %5d , az = %5d, gx = %5d , gy = %5d , gz = %5d, mx = %5d , my = %5d , mz = %5d \r\n", a_xyz[0], a_xyz[1], a_xyz[2], g_xyz[0], g_xyz[1], g_xyz[2], m_xyz[0], m_xyz[1], m_xyz[2]);
     	}
     }
 
