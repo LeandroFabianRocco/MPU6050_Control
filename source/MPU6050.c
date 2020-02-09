@@ -297,3 +297,85 @@ void MPU6050_GetAngularVelocity(float *omega)
 }
 
 
+/*********************************************************************************************
+ * @brief Get the Acceleration in g units
+ *
+ * @param pointer to acceleration vector -- xyz values
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_GetgAcceleration(float *accel)
+{
+	int16_t xyz_accel[3];
+	MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, xyz_accel);
+	accel[0] = (float)xyz_accel[0] / MPU6050_ACCEL_FACTOR;
+	accel[1] = (float)xyz_accel[1] / MPU6050_ACCEL_FACTOR;
+	accel[2] = (float)xyz_accel[2] / MPU6050_ACCEL_FACTOR;
+}
+
+/*********************************************************************************************
+ * @brief Get the X angle from accelerometer
+ *
+ * @param void
+ *
+ * @return roll angle
+ *********************************************************************************************/
+float MPU6050_GetXAngle(void)
+{
+	int16_t xyz_accel[3];
+	MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, xyz_accel);
+
+	float sum_of_squares = powf((float)xyz_accel[0], 2) + powf((float)xyz_accel[2], 2);
+	float root = sqrtf(sum_of_squares);
+	float Xangle = atanf(xyz_accel[1] / root) * 57.2957;
+
+	return Xangle;
+}
+
+
+/*********************************************************************************************
+ * @brief Get the Y angle from accelerometer
+ *
+ * @param void
+ *
+ * @return pitch angle
+ *********************************************************************************************/
+float MPU6050_GetYAngle(void)
+{
+	int16_t xyz_accel[3];
+	MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, xyz_accel);
+
+	float sum_of_squares = powf((float)xyz_accel[1], 2) + powf((float)xyz_accel[2], 2);
+	float root = sqrtf(sum_of_squares);
+	float Yangle = atanf(xyz_accel[0] / root) * 57.2957;
+
+	return Yangle;
+}
+
+
+/*********************************************************************************************
+ * @brief Get X and Y angles with complementary filter
+ *
+ * @param previous X angle
+ * @param previous Y angle
+ * @param diferential time between measures
+ * @param new X angle pointer
+ * @param new y angle pointer
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_ComplementaryFilterAngles(float x_prev, float y_prev, float dt, float *x_new, float *y_new)
+{
+	float x_angle = MPU6050_GetXAngle();
+	float y_angle = MPU6050_GetYAngle();
+
+	float omega[3];
+
+	MPU6050_GetAngularVelocity(omega);
+
+	*x_new = 0.98 * (x_prev + omega[0] * dt) + 0.02 * x_angle;
+	*y_new = 0.98 * (y_prev + omega[1] * dt) + 0.02 * y_angle;
+}
+
+
+

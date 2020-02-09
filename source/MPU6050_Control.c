@@ -1,33 +1,3 @@
-/*
- * Copyright 2016-2020 NXP
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *
- * o Redistributions of source code must retain the above copyright notice, this list
- *   of conditions and the following disclaimer.
- *
- * o Redistributions in binary form must reproduce the above copyright notice, this
- *   list of conditions and the following disclaimer in the documentation and/or
- *   other materials provided with the distribution.
- *
- * o Neither the name of NXP Semiconductor, Inc. nor the names of its
- *   contributors may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
- 
 /**
  * @file    MPU6050_Control.c
  * @brief   Application entry point.
@@ -42,14 +12,9 @@
 
 #include "FXOS8700CQ.h"
 #include "MPU6050.h"
+#include "Delays.h"
 
-/*
- * @brief   Application entry point.
- *
- * uint8_t g_accel_addr_found = 0x00;
- */
 
-uint8_t g_accel_addr_found = 0x00;
 int main(void) {
 
 	bool isThereAccelFX = false;
@@ -62,6 +27,8 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    SysTick_init();
+
     // Inicializo el acelerómetro de la placa
     PRINTF("Inicializando acelerómetro...");
     FXOS8700CQ_Init();
@@ -73,6 +40,11 @@ int main(void) {
 
     isThereAccelFX = FXOS8700CQ_ReadSensorWhoAmI();
     isThereAccelMPU = MPU6050_ReadSensorWhoAmI();
+
+
+
+    float x_prev = 0, y_prev = 0;
+    float x_new, y_new;
 
     while(1)
     {
@@ -94,10 +66,22 @@ int main(void) {
     		MPU6050_Read_Gyro_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, g_xyz);*/
     		//PRINTF("ax = %5d , ay = %5d , az = %5d, gx = %5d , gy = %5d , gz = %5d, mx = %5d , my = %5d , mz = %5d \r\n", a_xyz[0], a_xyz[1], a_xyz[2], g_xyz[0], g_xyz[1], g_xyz[2], m_xyz[0], m_xyz[1], m_xyz[2]);
 
-    		float omega[3];
+    		/*float omega[3];
+    		float accel[3];
+    		MPU6050_GetAngularVelocity(omega);
+    		MPU6050_GetgAcceleration(accel);*/
 
-    		MPU6050_GetAngularVelocity(&omega);
-    		PRINTF("wx = %2.2f , wy = %2.2f , wz = %2.2f \r\n", omega[0], omega[1], omega[2]);
+    		//PRINTF("wx = %2.2f , wy = %2.2f , wz = %2.2f, gx = %2.2f , gy = %2.2f , gz = %2.2f \r\n", omega[0], omega[1], omega[2], accel[0], accel[1], accel[2]);
+    		/*float roll, pitch;
+    		roll = MPU6050_GetXAngle();
+    		pitch = MPU6050_GetYAngle();
+    		PRINTF("Roll = %2.2f , Pitch = %2.2f \r\n", roll, pitch);*/
+
+    		SysTick_DelayTicks(10U);
+    		MPU6050_ComplementaryFilterAngles(x_prev, y_prev, 0.01, &x_new, &y_new);
+    		x_prev = x_new;
+    		y_prev = y_new;
+    		PRINTF("X = %2.2f , Y = %2.2f \r\n", x_new, y_new);
     	}
     }
 

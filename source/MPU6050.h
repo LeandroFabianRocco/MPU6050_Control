@@ -9,6 +9,7 @@
 #define MPU6050_H_
 
 #include "fsl_i2c.h"
+#include "math.h"
 
 /**********************************************************
  * Registros del MPU6050
@@ -204,6 +205,49 @@ void MPU6050_Read_Gyro_Data(I2C_Type *base, uint8_t device_addr, int16_t *xyz_gy
  *********************************************************************************************/
 void MPU6050_GetAngularVelocity(float *omega);
 
+
+/*********************************************************************************************
+ * @brief Get the Acceleration in g units
+ *
+ * @param pointer to acceleration vector -- xyz values
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_GetgAcceleration(float *accel);
+
+
+/*********************************************************************************************
+ * @brief Get the X angle from accelerometer
+ *
+ * @param void
+ *
+ * @return roll angle
+ *********************************************************************************************/
+float MPU6050_GetXAngle(void);
+
+
+/*********************************************************************************************
+ * @brief Get the Y angle from accelerometer
+ *
+ * @param void
+ *
+ * @return pitch angle
+ *********************************************************************************************/
+float MPU6050_GetYAngle(void);
+
+
+/*********************************************************************************************
+ * @brief Get X and Y angles with complementary filter
+ *
+ * @param previous X angle
+ * @param previous Y angle
+ * @param diferential time between measures
+ * @param new X angle pointer
+ * @param new y angle pointer
+ *
+ * @return void
+ *********************************************************************************************/
+void MPU6050_ComplementaryFilterAngles(float x_prev, float y_prev, float dt, float *x_new, float *y_new);
 
 
 #endif /* MPU6050_H_ */

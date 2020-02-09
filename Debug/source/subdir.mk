@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/AttitudeLibrary.c \
+../source/Delays.c \
 ../source/FXOS8700CQ.c \
 ../source/MPU6050.c \
 ../source/MPU6050_Control.c \
@@ -12,6 +13,7 @@ C_SRCS += \
 
 OBJS += \
 ./source/AttitudeLibrary.o \
+./source/Delays.o \
 ./source/FXOS8700CQ.o \
 ./source/MPU6050.o \
 ./source/MPU6050_Control.o \
@@ -19,6 +21,7 @@ OBJS += \
 
 C_DEPS += \
 ./source/AttitudeLibrary.d \
+./source/Delays.d \
 ./source/FXOS8700CQ.d \
 ./source/MPU6050.d \
 ./source/MPU6050_Control.d \
