@@ -344,7 +344,6 @@ float MPU6050_GetYAngle(void)
 {
 	int16_t xyz_accel[3];
 	MPU6050_Read_Accel_Data(I2C1, MPU6050_DEVICE_ADDRESS_0, xyz_accel);
-
 	float sum_of_squares = powf((float)xyz_accel[1], 2) + powf((float)xyz_accel[2], 2);
 	float root = sqrtf(sum_of_squares);
 	float Yangle = atanf(xyz_accel[0] / root) * 57.2957;
@@ -358,7 +357,7 @@ float MPU6050_GetYAngle(void)
  *
  * @param previous X angle
  * @param previous Y angle
- * @param diferential time between measures
+ * @param differential time between measures
  * @param new X angle pointer
  * @param new y angle pointer
  *
