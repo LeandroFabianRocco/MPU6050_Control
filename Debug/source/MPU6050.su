@@ -10,4 +10,4 @@ MPU6050.c:290:6:MPU6050_GetAngularVelocity	32	static
 MPU6050.c:307:6:MPU6050_GetgAcceleration	24	static
 MPU6050.c:323:7:MPU6050_GetXAngle	48	static
 MPU6050.c:343:7:MPU6050_GetYAngle	48	static
-MPU6050.c:367:6:MPU6050_ComplementaryFilterAngles	64	static
+MPU6050.c:366:6:MPU6050_ComplementaryFilterAngles	64	static

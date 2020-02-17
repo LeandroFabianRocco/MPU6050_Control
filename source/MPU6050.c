@@ -372,8 +372,8 @@ void MPU6050_ComplementaryFilterAngles(float x_prev, float y_prev, float dt, flo
 
 	MPU6050_GetAngularVelocity(omega);
 
-	*x_new = 0.98 * (x_prev + omega[0] * dt) + 0.02 * x_angle;
-	*y_new = 0.98 * (y_prev + omega[1] * dt) + 0.02 * y_angle;
+	*x_new = 0.8 * (x_prev + omega[0] * dt) + 0.2 * x_angle;
+	*y_new = 0.8 * (y_prev + omega[1] * dt) + 0.2 * y_angle;
 }
 
 

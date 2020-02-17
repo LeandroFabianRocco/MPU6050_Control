@@ -12,7 +12,7 @@
 #include "math.h"
 
 /**********************************************************
- * Registros del MPU6050
+ * MPU6050 registers
  *********************************************************/
 // Sensitivity scale factor
 #define MPU6050_ACCEL_FACTOR		16384.0

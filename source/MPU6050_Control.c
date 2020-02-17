@@ -46,6 +46,14 @@ int main(void) {
     float x_prev = 0, y_prev = 0;
     float x_new, y_new;
 
+    float ref = 0.0;
+    float pError = 0.0;
+    float iError = 0.0;
+    float dError = 0.0;
+    float dt = 0.02;
+    float prevError = 0.0;
+    float pid = 0.0;
+
     while(1)
     {
     	if ((isThereAccelFX) & (isThereAccelMPU))
@@ -77,11 +85,23 @@ int main(void) {
     		pitch = MPU6050_GetYAngle();
     		PRINTF("Roll = %2.2f , Pitch = %2.2f \r\n", roll, pitch);*/
 
-    		SysTick_DelayTicks(10U);
-    		MPU6050_ComplementaryFilterAngles(x_prev, y_prev, 0.01, &x_new, &y_new);
+    		SysTick_DelayTicks(20U);
+    		MPU6050_ComplementaryFilterAngles(x_prev, y_prev, 0.02, &x_new, &y_new);
     		x_prev = x_new;
     		y_prev = y_new;
-    		PRINTF("X = %2.2f , Y = %2.2f \r\n", x_new, y_new);
+
+
+
+    		pError = ref - x_new;
+    		iError = iError + pError * dt;
+    		dError = pError - prevError;
+
+    		prevError = pError;
+    		pid = 1.0*pError + 0.5*iError + 0.3*dError;
+
+
+
+    		PRINTF("X = %2.2f , Y = %2.2f, PID_output = %2.3f \r\n", x_new, y_new, pid);
     	}
     }
 
