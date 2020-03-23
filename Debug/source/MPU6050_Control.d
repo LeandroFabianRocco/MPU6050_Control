@@ -17,6 +17,7 @@ source/MPU6050_Control.o source/MPU6050_Control.d: \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/drivers/fsl_port.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/peripherals.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/drivers/fsl_i2c.h \
+ /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/drivers/fsl_pit.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/pin_mux.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/clock_config.h \
  /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/device/MK64F12.h \
@@ -60,6 +61,8 @@ source/MPU6050_Control.o source/MPU6050_Control.d: \
 /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/peripherals.h:
 
 /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/drivers/fsl_i2c.h:
+
+/home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/drivers/fsl_pit.h:
 
 /home/leandro/MEGA/Dron/FreedomProjects/MPU6050_Control/board/pin_mux.h:
 
